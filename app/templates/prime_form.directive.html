@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="jumbotron">
+    <h2>Prime Numbers Calculator</h2>
+    <form ng-submit="calculatePrime(prime.upperLimit)" novalidate>
+      <div class="form-group">
+        <input name="upperLimit" ng-model="prime.upperLimit" ng-value="3" type="number" class="form-control" placeholder="Upper Limit" min="2" max="10000000" step="1" required>
+      </div>
+      <button type="submit" class="btn btn-lg btn-success">Calculate</button>
+    </form>
+  </div>
+  <table ng-if="!showMessage" class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="prime in primes">
+        <td>{{::$index + 1}}</td>
+        <td>{{::prime}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2 ng-if="showMessage">
+    Due the large number of results, only the last one is displayed.<br />
+    Last prime is {{::primes}}
+</h2>
+</div>

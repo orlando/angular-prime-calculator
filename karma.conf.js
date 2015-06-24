@@ -11,6 +11,11 @@ module.exports = function(config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
 
+    // preprocess matching files before serving them to the browser
+    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    preprocessors: {
+      '**/*.html': ['ng-html2js']
+    },
 
     // list of files / patterns to load in the browser
     files: [
@@ -18,6 +23,7 @@ module.exports = function(config) {
       'bower_components/angular-mocks/angular-mocks.js',
       'app/**/*.js',
       'test/**/*Spec.js',
+      'app/templates/**/*.html'
     ],
 
 
@@ -26,12 +32,10 @@ module.exports = function(config) {
       'Gruntfile.js'
     ],
 
-
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'app',
+      moduleName: 'templates'
     },
-
 
     // test results reporter to use
     // possible values: 'dots', 'progress'

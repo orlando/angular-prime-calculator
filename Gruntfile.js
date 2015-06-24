@@ -139,16 +139,6 @@ module.exports = function (grunt) {
       ]
     },
 
-    // Mocha testing framework configuration options
-    mocha: {
-      all: {
-        options: {
-          run: true,
-          urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
-        }
-      }
-    },
-
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
       options: {
@@ -352,6 +342,28 @@ module.exports = function (grunt) {
       }
     },
 
+    ngtemplates: {
+      dist: {
+        cwd: '<%= config.app %>',
+        src: 'templates/**/*.html',
+        dest: '<%= config.app %>/scripts/templates.js',
+        options: {
+          prefix: '/',
+          module: 'fundingCircle',
+          usemin: 'scripts/main.js',
+          htmlmin: {
+            collapseBooleanAttributes: true,
+            collapseWhitespace: true,
+            removeAttributeQuotes: true,
+            removeEmptyAttributes: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true
+          }
+        }
+      }
+    },
+
     // Run some tasks in parallel to speed up build process
     concurrent: {
       server: [
@@ -405,7 +417,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'connect:test',
-      'mocha'
+      'karma'
     ]);
   });
 
@@ -413,6 +425,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'wiredep',
     'useminPrepare',
+    'ngtemplates:dist',
     'concurrent:dist',
     'autoprefixer',
     'concat',
